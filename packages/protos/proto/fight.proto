@@ -1,0 +1,123 @@
+syntax = "proto3";
+package fight;
+
+// ---------- SERVICES ----------
+
+service FightService {
+  rpc Fight(stream ClientFightMessage) returns (stream ServerFightMessage);
+
+  rpc RequestFightStart(RequestStartFight) returns (stream ServerFightMessage);
+  rpc RequestFightNextTick(RequestFightNextTickMessage) returns (ResponseFightNextTick);
+}
+
+// ---------- FIGHT MESSAGES ----------
+/**
+   Messages sent by the server to the client during a fight to signify events in the fight.
+   Should include:
+   - Unit actions (attack, spells, skills...) and their result (success, miss, target)
+   - End of fight
+
+*/
+
+message RequestFightNextTickMessage {
+  uint32 fight_id = 1;
+}
+
+/*
+   enum ResponseFightNextTickErrors {
+       None,
+   }
+*/
+
+message ResponseFightNextTick {}
+
+message ClientFightMessage {
+  oneof client_message {
+    RequestStartFight request_start_fight = 1;
+    RequestNextTick request_next_tick = 2;
+  }
+}
+
+message RequestStartFight {
+  string player_id = 1;
+}
+
+message RequestNextTick {}
+
+message ServerFightMessage {
+  oneof payload {
+    StartFight start_fight = 1;
+    FightAction fight_action = 2;
+    EndFight end_fight = 3;
+  }
+}
+
+message UnitReference {
+  bool is_player = 1;
+  uint32 unit_id = 2;
+}
+
+message ActionResultMiss {}
+
+message ActionResultDamage {
+  uint32 value = 1;
+  bool unit_dies = 2;
+}
+
+message ActionResultHeal {
+  uint32 value = 1;
+}
+
+message ActionResult {
+  UnitReference target = 1;
+  oneof action_result_payload {
+    ActionResultMiss action_result_miss = 2;
+    ActionResultDamage action_result_damage = 3;
+    ActionResultHeal action_result_heal = 4;
+  }
+}
+
+message FightActionAttack {}
+
+message FightSkillAction {
+  uint32 skill_id = 1;
+}
+
+message FightSpellAction {
+  uint32 spell_id = 1;
+}
+
+message FightAction {
+  UnitReference unit_id = 1;
+  oneof action {
+    FightActionAttack fight_action_attack = 2;
+    FightSkillAction fight_action_skill = 3;
+    FightSpellAction fight_action_spell = 4;
+  }
+  repeated ActionResult action_result = 5;
+}
+
+/*
+   message FightReward {
+       uint32 experience = 0;
+   }
+*/
+
+message EndFight {
+  bool is_player_victory = 1;
+  uint32 experience = 2;
+}
+
+message RawCharacterData {
+  uint32 max_hp = 1;
+  uint32 attack = 2;
+  uint32 defense = 3;
+  uint32 speed = 4;
+  //uint32 experience = 3;
+}
+
+message StartFight {
+  uint32 fight_id = 1;
+  repeated RawCharacterData player_characters = 2;
+  repeated RawCharacterData enemy_characters = 3;
+}

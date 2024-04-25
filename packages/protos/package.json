@@ -1,0 +1,31 @@
+{
+  "name": "protos",
+  "version": "1.0.0",
+  "description": "",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "proto:ts": "protoc --ts_out lib --proto_path proto proto/fight.proto"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@protobuf-ts/plugin": "^2.9.4",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@protobuf-ts/runtime-rpc": "^2.9.4",
+    "@protobuf-ts/runtime": "^2.9.4"
+  }
+}
