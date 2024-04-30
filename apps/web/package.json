@@ -22,7 +22,9 @@
 		"@types/eslint": "^8.56.0",
 		"@typescript-eslint/eslint-plugin": "^7.0.0",
 		"@typescript-eslint/parser": "^7.0.0",
+		"@vitejs/plugin-basic-ssl": "^1.1.0",
 		"autoprefixer": "^10.4.16",
+		"eruda": "^3.0.1",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
@@ -41,8 +43,26 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@internationalized/date": "^3.5.2",
+		"@protobuf-ts/grpcweb-transport": "^2.9.4",
+		"@supabase/supabase-js": "^2.42.7",
+		"@tma.js/sdk": "^1.5.3",
+		"@tonconnect/ui": "^2.0.0",
+		"bits-ui": "^0.21.2",
 		"clsx": "^2.1.0",
+		"cmdk-sv": "^0.0.17",
+		"embla-carousel-svelte": "^8.0.0",
+		"formsnap": "^1.0.0",
+		"lucide-svelte": "^0.364.0",
+		"mode-watcher": "^0.3.0",
+		"paneforge": "^0.0.2",
+		"protos": "workspace:*",
+		"svelte-sonner": "^0.3.21",
+		"sveltekit-superforms": "^2.12.2",
 		"tailwind-merge": "^2.2.2",
-		"tailwind-variants": "^0.2.1"
+		"tailwind-variants": "^0.2.1",
+		"ui": "workspace:*",
+		"vaul-svelte": "^0.3.0",
+		"zod": "^3.22.4"
 	}
 }
