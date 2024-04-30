@@ -8,6 +8,9 @@ importers:
 
   apps/bot:
     dependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.42.7
+        version: 2.42.7
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
