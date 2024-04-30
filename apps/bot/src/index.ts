@@ -1,53 +1,77 @@
-import 'dotenv/config'
+import "dotenv/config";
 
 import { Context, NarrowedContext, Telegraf, Markup } from "telegraf";
 import { message } from "telegraf/filters";
 import { Update, Message } from "telegraf/typings/core/types/typegram";
+import { GAME_URL } from "./constants";
 
-const chat_id = 1614290577;
+import { createClient } from "@supabase/supabase-js";
+import { type Database } from "./types/supabase";
 
-type BotContext = NarrowedContext<
-  Context<Update>,
-  Update.MessageUpdate<Record<"text", {}> & Message.TextMessage>
->;
-
-const actions: Record<string, (ctx: BotContext) => Promise<unknown>> = {
-  "/hello": async (ctx: BotContext) => {
-    await ctx.telegram.sendMessage(
-      ctx.message.chat.id,
-      `Hello ${ctx.message.chat.id}`
-    );
-  },
-  "/start": async (ctx: BotContext) => {
-    /*
-    await ctx.reply("Choose one of the following actions"),
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [
-              Markup.button.callback("Option 1", "1"),
-              { text: "Option 1", callback_data: "1" },
-              { text: "Option 2", callback_data: "2" },
-            ],
-          ],
-        },
-      };
-      */
-
-    return ctx.reply("Choose one of the following actions", {
-      ...Markup.inlineKeyboard([
-        Markup.button.callback("Option 1", "1"),
-        Markup.button.url("Start Playing 🕹️", "https://t.me/Azoya_test_bot/app_entry"),
-      ]),
-    });
-  },
-};
+const supabase = createClient<Database>(
+  process.env.PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_KEY!
+);
 
 async function main() {
-  const bot = new Telegraf(process.env.TELEGRAM_HTTP_TOKEN);
+  const bot = new Telegraf(process.env.TELEGRAM_HTTP_TOKEN!);
 
   bot.action("delete", async (ctx) => {
     ctx.deleteMessage();
+  });
+
+  bot.command("start", async (ctx) => {
+    const chat = await ctx.telegram.getChat(ctx.chat.id);
+    await supabase.from("player").insert({ id: chat.id.toString() });
+
+    return ctx.replyWithMarkdownV2(
+      `🎮 Get Ready For Adventure\\! 🚀
+
+💀 Build a team, Fight monsters\\! 💀
+    
+Eternal Quest is inspired by old\\-school turn\\-based JRPGs, now on Telegram\\!`,
+      {
+        ...Markup.inlineKeyboard([
+          Markup.button.url("Start Playing 🕹️", GAME_URL),
+        ]),
+      }
+    );
+  });
+
+  bot.command("hey", async (ctx) => {
+    ctx.sendMessage("Hello friend");
+  });
+
+  bot.command("top_players", async (ctx) => {
+    const { data: players, count } = await supabase
+      .from("playerpower")
+      .select("*", { count: "planned" })
+      .order("playerpower", { ascending: false })
+      .limit(10);
+    console.dir(count);
+
+    return ctx.replyWithMarkdownV2(`\\# Top 10 Players\n
+${players
+  ?.map((p, i) => {
+    return `${i + 1}\\. ${p.playerid} \\- ${p.playerpower} power`;
+  })
+  .join("\n")}`);
+  });
+
+  bot.command("top_clans", async (ctx) => {
+    const { data: clans, count } = await supabase
+      .from("clanpowerlevel")
+      .select("*", { count: "planned" })
+      .order("clanpower", { ascending: false })
+      .limit(10);
+    console.dir(count);
+
+    return ctx.replyWithMarkdownV2(`\\# Top 10 Clans\n
+${clans
+  ?.map((c, i) => {
+    return `${i + 1}\\. ${c.clanname} \\- ${c.clanpower} power`;
+  })
+  .join("\n")}`);
   });
 
   bot.on(message("text"), async (ctx) => {
@@ -63,9 +87,7 @@ async function main() {
     }
   });
 
-  //bot.telegram.sendMessage(chad_id, "Hello Is this the right chat? poggies");
-
-  console.log("it lives");
+  console.log("STARTING BOT");
 
   await bot.launch();
   process.once("SIGINT", () => bot.stop("SIGINT"));

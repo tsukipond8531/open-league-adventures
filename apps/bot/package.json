@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.42.7",
     "dotenv": "^16.4.5",
     "telegraf": "^4.16.3"
   },
