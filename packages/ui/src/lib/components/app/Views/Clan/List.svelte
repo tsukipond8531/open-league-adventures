@@ -49,7 +49,9 @@
 				<div class="w-full max-w-sm mx-auto">
 					<Drawer.Header>
 						<Drawer.Title>{clan.name}</Drawer.Title>
-						<Drawer.Description>{clan.description}</Drawer.Description>
+						{#if clan.description}
+							<Drawer.Description>{clan.description}</Drawer.Description>
+						{/if}
 					</Drawer.Header>
 					<div class="p-4 pb-0">
 						<div>
@@ -81,7 +83,6 @@
 			</div>
 			<div class="flex flex-col justify-center flex-grow text-left">
 				<div class="text-lg font-semibold">{userClan.name}</div>
-				<div>how many in</div>
 			</div>
 			<div class="flex items-center pr-4 space-x-3">
 				<div>

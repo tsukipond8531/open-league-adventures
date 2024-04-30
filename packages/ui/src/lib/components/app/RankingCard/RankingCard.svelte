@@ -28,14 +28,14 @@
 <div class="bg-card flex h-[72px] items-stretch space-x-4 overflow-hidden rounded-xl border shadow">
 	<div class="flex flex-col items-center justify-center bg-muted aspect-square rounded-tr-2xl">
 		<div class="text-xl font-semibold text-primary">
-			{value.rank}
+			{value.rank <= 0 ? '100+' : value.rank}
 		</div>
 	</div>
 	<div class="flex flex-col justify-center flex-grow text-left">
 		<div class="text-lg font-semibold capitalize">{value.name}</div>
-        {#if value.description}
-            <div class="text-sm text-muted-foreground">{value.description}</div>
-        {/if}
+		{#if value.description}
+			<div class="text-sm text-muted-foreground">{value.description}</div>
+		{/if}
 	</div>
 	<div class="flex items-center pr-4 space-x-3">
 		<div>

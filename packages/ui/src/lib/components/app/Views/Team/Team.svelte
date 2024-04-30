@@ -79,7 +79,8 @@
 						<Character.Card {hero} />
 					</Drawer.Trigger>
 					<Drawer.Content>
-						<CharacterDrawer {hero} action={onFielded}></CharacterDrawer>
+						<CharacterDrawer {hero} action={onFielded} disabled={fielded.length === 4}
+						></CharacterDrawer>
 					</Drawer.Content>
 				</Drawer.Root>
 			{/each}

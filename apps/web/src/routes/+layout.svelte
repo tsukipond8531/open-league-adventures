@@ -55,6 +55,7 @@ const hash = TonWeb.utils.bytesToBase64(await bocCell.hash());
 */
 	});
 
+	// TODO: implement elsewhere
 	async function sendTx() {
 		const response = await tonConnectUI.sendTransaction({
 			network: CHAIN.TESTNET,
@@ -63,7 +64,7 @@ const hash = TonWeb.utils.bytesToBase64(await bocCell.hash());
 			validUntil: Date.now() + 1000000
 		});
 
-		response.boc
+		response.boc;
 
 		const bocCell = TonWeb.boc.Cell.oneFromBoc(TonWeb.utils.base64ToBytes(response.boc));
 
@@ -73,9 +74,6 @@ const hash = TonWeb.utils.bytesToBase64(await bocCell.hash());
 
 <div class="relative mx-auto h-screen max-w-[422px] border-x">
 	<slot />
-	<div>
-		<button on:click={sendTx}>Send tx</button>
-	</div>
 	<div
 		class="{tonConnectUI !== null && $USER_ACCOUNT !== null
 			? 'hidden'

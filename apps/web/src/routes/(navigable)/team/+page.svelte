@@ -4,8 +4,6 @@
 
 	export let data;
 
-	// const characters = data.characters;
-
 	const charactersStore = (() => {
 		const { subscribe, set, update } = writable(data.characters);
 
@@ -26,20 +24,18 @@
 		};
 	})();
 
+	charactersStore.subscribe((value) => {
+		// TODO: notify database
+	});
+
 	$: fielded = derived(charactersStore, ($charactersStore) =>
 		$charactersStore.filter((character) => character.fielded)
 	);
 	$: benched = derived(charactersStore, ($charactersStore) =>
 		$charactersStore.filter((character) => !character.fielded)
 	);
-	/*
-	$: fielded = characters.filter((character) => character.fielded);
-	$: benched = characters.filter((character) => !character.fielded);
-*/
-	// $: console.log(fielded, benched);
 </script>
 
-<!-- TODO: should be a header and a list. The list should be able to overflow and be scrolled upon -->
 <Views.Team
 	fielded={$fielded}
 	benched={$benched}

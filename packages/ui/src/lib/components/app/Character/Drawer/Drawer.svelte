@@ -31,6 +31,7 @@
 	};
 
 	export let action: (id: string) => void;
+	export let disabled = false;
 </script>
 
 <div class=" mx-auto w-full max-w-[422px] py-4">
@@ -50,7 +51,7 @@
 			</div>
 		</div>
 
-		<Button on:click={() => action(hero.id)}>{hero.fielded ? 'Remove' : 'Use'}</Button>
+		<Button on:click={() => action(hero.id)} {disabled}>{hero.fielded ? 'Remove' : 'Use'}</Button>
 	</div>
 	<div class="mt-6">
 		<div class="text-xs font-medium uppercase">Stats</div>

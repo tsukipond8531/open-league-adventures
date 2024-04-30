@@ -8,6 +8,8 @@
 	import Shop from '$lib/assets/Itemicon_Home_Shop_0.png';
 	import Adventure from '$lib/assets/Icon_ColorIcon_Map01.png';
 
+
+	export let data;
 	let tonConnectUI: TonConnectUI;
 
 	let isTelegram = false;
@@ -66,7 +68,7 @@ const hash = TonWeb.utils.bytesToBase64(await bocCell.hash());
 <div class="mx-auto max-w-[422px] border-x">
 	<BaseLayout>
 		<svelte:fragment slot="header">
-			<Header powerLevel={10000} {currentEnergy} {maxEnergy} {coinBalance} />
+			<Header powerLevel={data.playerPower} {currentEnergy} {maxEnergy} {coinBalance} />
 		</svelte:fragment>
 
 		<slot />

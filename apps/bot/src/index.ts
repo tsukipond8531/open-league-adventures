@@ -1,6 +1,7 @@
+import 'dotenv/config'
+
 import { Context, NarrowedContext, Telegraf, Markup } from "telegraf";
 import { message } from "telegraf/filters";
-import { TELEGRAM_HTTP_TOKEN } from "./constants";
 import { Update, Message } from "telegraf/typings/core/types/typegram";
 
 const chat_id = 1614290577;
@@ -43,7 +44,7 @@ const actions: Record<string, (ctx: BotContext) => Promise<unknown>> = {
 };
 
 async function main() {
-  const bot = new Telegraf(TELEGRAM_HTTP_TOKEN);
+  const bot = new Telegraf(process.env.TELEGRAM_HTTP_TOKEN);
 
   bot.action("delete", async (ctx) => {
     ctx.deleteMessage();

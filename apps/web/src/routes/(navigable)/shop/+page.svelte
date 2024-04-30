@@ -12,9 +12,23 @@
 		image: '/IconGroup_ShopIcon_Chest.png',
 		description: '10k Coin + 2k Gems'
 	};
+
+	export let data;
 </script>
 
 <div class="max-h-full py-4 space-y-16 overflow-y-auto">
+	{#each data.offers as category}
+		{@const section = category.section}
+		{@const items = category.items}
+
+		<ShopSection sectionType={ShopSectionType.Basic} header={section.title}>
+			<div class="grid grid-cols-2 grid-rows-1 gap-3 md:gap-6">
+				{#each items as item}
+					<ShopCard content={item}></ShopCard>
+				{/each}
+			</div>
+		</ShopSection>
+	{/each}
 	<ShopSection sectionType={ShopSectionType.Bundle} header={'Bundle'}>
 		<div
 			class="w-full h-48 bg-center bg-cover border rounded-sm aspect-video"
