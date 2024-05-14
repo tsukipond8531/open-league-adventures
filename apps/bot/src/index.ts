@@ -14,7 +14,8 @@ const supabase = createClient<Database>(
 );
 
 async function main() {
-  const bot = new Telegraf(process.env.TELEGRAM_HTTP_TOKEN!);
+  // TODO: switch between dev and prod token
+  const bot = new Telegraf(process.env.TELEGRAM_DEV_HTTP_TOKEN!);
 
   bot.action("delete", async (ctx) => {
     ctx.deleteMessage();

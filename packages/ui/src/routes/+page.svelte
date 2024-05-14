@@ -4,26 +4,13 @@
 	import { Canvas } from '@threlte/core';
 	import { T } from '@threlte/core';
 	import Knight from '$lib/assets/Models/Knight.svelte';
+	import CombatView from '$lib/components/app/Views/Combat/CombatView.svelte';
 </script>
 
-<Canvas>
-    <T.DirectionalLight position={[0, 10, 10]} />
+<div class="relative max-w-sm border border-red-500 h-96">
+	<div id="css-renderer-target" />
 
-	<T.PerspectiveCamera
-		makeDefault
-		position={[10, 10, 10]}
-		on:create={({ ref }) => {
-			ref.lookAt(0, 1, 0);
-		}}
-	>
-		<OrbitControls />
-	</T.PerspectiveCamera>
-	<!-- 
-	<T.Mesh>
-		<T.BoxGeometry args={[1, 2, 1]} />
-		<T.MeshBasicMaterial color="hotpink" />
-	</T.Mesh>
-     -->
-
-	<Knight></Knight>
-</Canvas>
+	<Canvas>
+		<CombatView />
+	</Canvas>
+</div>

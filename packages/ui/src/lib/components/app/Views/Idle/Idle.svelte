@@ -56,13 +56,13 @@
 			<div class="text-xs font-bold uppercase">Act 1</div>
 			<div class="text-2xl font-semibold tracking-wider uppercase">The Test</div>
 		</div>
-		<button class="mx-auto mt-6 flex h-fit items-center {buttonVariants({ variant: 'default' })}">
+		<Button href="/battle" class="flex items-center mx-auto mt-6 h-fit">
 			<img src={Energy} alt="Energy" class="mr-3 h-9 w-9" />
 			<div class="text-left">
 				<div class="text-lg">Play</div>
 				<div>0 energy</div>
 			</div>
-		</button>
+		</Button>
 	</div>
 </div>
 

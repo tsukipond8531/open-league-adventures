@@ -36,12 +36,18 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.42.7
         version: 2.42.7
+      '@threlte/core':
+        specifier: ^7.3.0
+        version: 7.3.0(svelte@4.2.12)(three@0.163.0)
       '@tma.js/sdk':
         specifier: ^1.5.3
         version: 1.5.3
       '@tonconnect/ui':
         specifier: ^2.0.0
         version: 2.0.0
+      '@types/three':
+        specifier: ^0.163.0
+        version: 0.163.0
       bits-ui:
         specifier: ^0.21.2
         version: 0.21.2(svelte@4.2.12)
@@ -81,6 +87,9 @@ importers:
       tailwind-variants:
         specifier: ^0.2.1
         version: 0.2.1(tailwindcss@3.4.3)
+      three:
+        specifier: ^0.163.0
+        version: 0.163.0
       ui:
         specifier: workspace:*
         version: link:../../packages/ui

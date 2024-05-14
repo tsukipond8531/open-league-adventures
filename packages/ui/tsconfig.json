@@ -11,6 +11,9 @@
 		"strict": true,
 		"module": "NodeNext",
 		// "moduleResolution": "NodeNext"
-		"moduleResolution": "Bundler"
+		"moduleResolution": "Bundler",
+		"types": [
+			"vitest/importMeta"
+		]
 	}
 }

@@ -1,18 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { TonConnectUI } from '@tonconnect/ui';
-	import { dev } from '$app/environment';
 	import { BottomNav, BaseLayout, Header } from 'ui';
 	import Community from '$lib/assets/Itemicon_Flag_1_Clan.png';
 	import Friends from '$lib/assets/Itemicon_Friends.png';
 	import Shop from '$lib/assets/Itemicon_Home_Shop_0.png';
 	import Adventure from '$lib/assets/Icon_ColorIcon_Map01.png';
 
-
 	export let data;
 	let tonConnectUI: TonConnectUI;
 
-	let isTelegram = false;
 	onMount(async () => {
 		document.addEventListener(
 			'touchmove',
@@ -34,12 +31,10 @@
 			buttonRootId: 'ton-connect'
 		});*/
 
-		isTelegram = true;
 		if ('Telegram' in window) {
-			console.dir(window.Telegram);
 			window.Telegram.WebApp.enableClosingConfirmation();
 		}
-		// console.log($page.url)
+		// log($page.url)
 
 		/*
 		//const response = await tonConnectUI.sendTransaction()

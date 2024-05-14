@@ -5,3 +5,4 @@ export * from './app/Layouts/Base';
 export * from './app/ShopSection';
 export * from './app/Header';
 export * from './app/RankingCard';
+export * as Combat from "./app/Combat";

@@ -6,11 +6,15 @@ export default defineConfig({
 	assetsInclude: ['**/*.png', '**/*.glb'],
 	server: {
 		fs: {
-			allow: [".."]
+			allow: ['..']
 		}
 	},
 	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}']
+		include: ['src/**/*.{test,spec}.{js,ts}'],
+		includeSource: ['src/**/*.{js,ts}']
+	},
+	define: {
+		'import.meta.vitest': 'undefined'
 	},
 	ssr: {
 		noExternal: ['three']

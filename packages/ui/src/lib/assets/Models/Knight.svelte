@@ -8,23 +8,28 @@ Command: npx @threlte/gltf@2.0.3 ./models/Knight.glb --output=./src/lib/assets/M
 </script>
 
 <script lang="ts">
-	import { Box3, Group, Vector3 } from 'three';
+	import { AnimationAction, Box3, Group, Vector3 } from 'three';
 	import { T, forwardEventHandlers } from '@threlte/core';
 	import { Outlines, useGltf, useGltfAnimations } from '@threlte/extras';
 	import { SkeletonUtils } from 'three/examples/jsm/Addons.js';
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 
 	export const ref = new Group();
-	//let id = crypto.randomUUID();
 
-	import knightModel from "$lib/assets/Models/Knight-transformed.glb?url";
-
+	import knightModel from '$lib/assets/Models/Knight-transformed.glb?url';
+	import type { EventBus } from '$lib/components/app/Views/Combat/EventBus';
+	import type { Message } from '$lib/components/app/Views/Combat/CombatView.svelte';
+	import type { HERO_ANIMATIONS_TYPE } from '$lib/components/app/Views/Combat/animations';
 	const gltf = useGltf(`${knightModel}?${id++}`, { useDraco: true });
 
-//	const gltf = useGltf(`.storybook/Knight-transformed.glb?${id++}`, { useDraco: true });
-	export const { actions, mixer } = useGltfAnimations(gltf, ref);
+	//	const gltf = useGltf(`.storybook/Knight-transformed.glb?${id++}`, { useDraco: true });
+	export const { actions, mixer } = useGltfAnimations<HERO_ANIMATIONS_TYPE>(gltf, ref);
 
 	const component = forwardEventHandlers();
+	const bus: EventBus<{
+		characterID: number;
+		action: 'attack' | 'die';
+	}> = getContext('bus');
 
 	onMount(() => {
 		return () => {
@@ -32,9 +37,6 @@ Command: npx @threlte/gltf@2.0.3 ./models/Knight.glb --output=./src/lib/assets/M
 		};
 	});
 
-	actions.subscribe((value) => {
-		value['Idle']?.play();
-	});
 </script>
 
 <T is={ref} dispose={false} {...$$restProps} bind:this={$component}>
@@ -50,49 +52,49 @@ Command: npx @threlte/gltf@2.0.3 ./models/Knight.glb --output=./src/lib/assets/M
 					geometry={gltf.nodes.Knight_ArmLeft.geometry}
 					skeleton={gltf.nodes.Knight_ArmLeft.skeleton}
 					material={gltf.materials.knight_texture}
-				>
-					<Outlines color="white" thickness={0.02} />
-				</T.SkinnedMesh>
+					castShadow
+					receiveShadow
+				></T.SkinnedMesh>
 				<T.SkinnedMesh
 					name="Knight_ArmRight"
 					geometry={gltf.nodes.Knight_ArmRight.geometry}
 					material={gltf.materials.knight_texture}
 					skeleton={gltf.nodes.Knight_ArmRight.skeleton}
-				>
-					<Outlines color="white" thickness={0.02} />
-				</T.SkinnedMesh>
+					castShadow
+					receiveShadow
+				></T.SkinnedMesh>
 				<T.SkinnedMesh
 					name="Knight_Body"
 					geometry={gltf.nodes.Knight_Body.geometry}
 					skeleton={gltf.nodes.Knight_Body.skeleton}
 					material={gltf.materials.knight_texture}
-				>
-					<Outlines color="white" thickness={0.02} />
-				</T.SkinnedMesh>
+					castShadow
+					receiveShadow
+				></T.SkinnedMesh>
 				<T.SkinnedMesh
 					name="Knight_Head"
 					geometry={gltf.nodes.Knight_Head.geometry}
 					material={gltf.materials.knight_texture}
 					skeleton={gltf.nodes.Knight_Head.skeleton}
-				>
-					<Outlines color="white" thickness={0.02} />
-				</T.SkinnedMesh>
+					castShadow
+					receiveShadow
+				></T.SkinnedMesh>
 				<T.SkinnedMesh
 					name="Knight_LegLeft"
 					geometry={gltf.nodes.Knight_LegLeft.geometry}
 					material={gltf.materials.knight_texture}
 					skeleton={gltf.nodes.Knight_LegLeft.skeleton}
-				>
-					<Outlines color="white" thickness={0.02} />
-				</T.SkinnedMesh>
+					castShadow
+					receiveShadow
+				></T.SkinnedMesh>
 				<T.SkinnedMesh
 					name="Knight_LegRight"
 					geometry={gltf.nodes.Knight_LegRight.geometry}
 					material={gltf.materials.knight_texture}
 					skeleton={gltf.nodes.Knight_LegRight.skeleton}
-				>
-					<Outlines color="white" thickness={0.02} />
-				</T.SkinnedMesh>
+					castShadow
+					receiveShadow
+				></T.SkinnedMesh>
 			</T.Group>
 		</T.Group>
 	{:catch error}

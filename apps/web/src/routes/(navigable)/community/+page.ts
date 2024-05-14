@@ -9,10 +9,8 @@ export const load = (async ({ parent }) => {
 		.order('playerpower', { ascending: false })
 		.limit(100);
 
-	console.dir(players);
-
 	return {
 		players: players ?? [],
-		rank: (players?.findIndex((player) => player.playerid === userID) ?? -2) +1
+		rank: (players?.findIndex((player) => player.playerid === userID) ?? -2) + 1
 	};
 }) satisfies PageLoad;

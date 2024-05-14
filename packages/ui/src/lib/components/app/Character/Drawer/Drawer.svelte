@@ -34,7 +34,7 @@
 	export let disabled = false;
 </script>
 
-<div class=" mx-auto w-full max-w-[422px] py-4">
+<div class=" mx-auto w-full max-w-[422px] p-4">
 	<div class="flex items-center justify-between">
 		<div>
 			<div>

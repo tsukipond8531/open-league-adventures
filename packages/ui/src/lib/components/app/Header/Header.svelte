@@ -27,7 +27,7 @@
 		<div class="flex w-[140px] items-center rounded-lg border">
 			<img src={CoinIcon} width="24" alt="coin balance" class="mr-1" />
 			<div class="flex-grow px-1 py-0.5 text-right">{coinBalance}</div>
-			<button class="px-2 border-l">+</button>
+			<a class="px-2 border-l" href="/shop">+</a>
 		</div>
 	</div>
 </div>

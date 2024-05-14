@@ -1,15 +1,24 @@
 import { DB_CLIENT } from '$lib/client';
 import type { LayoutLoad } from './$types';
+import { init } from '@tma.js/sdk';
+export const ssr = false;
 
-export const load = (async () => {
+export const load = (async ({ url }) => {
 	// TODO: get the user ID in another way. We 'should' be getting it from the opening URL?
-	const userID = 'Bogdanoff';
+	let userID = 'Bogdanoff';
+
+	try {
+		const { initData } = init();
+		console.dir(initData);
+		userID = initData!.user!.id;
+	} catch (error) {
+		console.log('Error getting user ID');
+	}
 
 	const { data: playerPower } = await DB_CLIENT.from('playerpower')
 		.select('*')
 		.eq('playerid', userID)
 		.single();
-	console.dir(playerPower);
 
 	return {
 		userID: userID,

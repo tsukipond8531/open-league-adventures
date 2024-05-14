@@ -5,6 +5,7 @@
 	import { TonConnectUI, type Account, CHAIN } from '@tonconnect/ui';
 	import { page } from '$app/stores';
 	import { USER_ACCOUNT } from '$lib/state';
+	import { init, ClosingBehavior } from '@tma.js/sdk';
 
 	let tonConnectUI: TonConnectUI;
 
@@ -12,6 +13,15 @@
 
 	let account: Account | null = null;
 	onMount(async () => {
+		try {
+			const { mainButton, viewport, initData, closingBehavior } = init();
+			closingBehavior.enableConfirmation();
+			viewport.expand();
+			console.dir(initData);
+		} catch (e) {
+			console.error(e);
+		}
+
 		document.addEventListener(
 			'touchmove',
 			(e) => {
@@ -44,7 +54,8 @@
 		isTelegram = true;
 		if ('Telegram' in window) {
 			//console.dir(window.Telegram);
-			window.Telegram.WebApp.enableClosingConfirmation();
+			console.log('telegram');
+			///window.Telegram.WebApp.enableClosingConfirmation();
 		}
 
 		/*

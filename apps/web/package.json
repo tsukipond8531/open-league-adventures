@@ -46,8 +46,10 @@
 		"@internationalized/date": "^3.5.2",
 		"@protobuf-ts/grpcweb-transport": "^2.9.4",
 		"@supabase/supabase-js": "^2.42.7",
+		"@threlte/core": "^7.3.0",
 		"@tma.js/sdk": "^1.5.3",
 		"@tonconnect/ui": "^2.0.0",
+		"@types/three": "^0.163.0",
 		"bits-ui": "^0.21.2",
 		"clsx": "^2.1.0",
 		"cmdk-sv": "^0.0.17",
@@ -61,6 +63,7 @@
 		"sveltekit-superforms": "^2.12.2",
 		"tailwind-merge": "^2.2.2",
 		"tailwind-variants": "^0.2.1",
+		"three": "^0.163.0",
 		"ui": "workspace:*",
 		"vaul-svelte": "^0.3.0",
 		"zod": "^3.22.4"
