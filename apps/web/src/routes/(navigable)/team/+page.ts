@@ -1,13 +1,16 @@
 import type { PageLoad } from './$types';
-import Frog from '$lib/assets/Itemicon_Globe.png';
-import WarriorPortrait from '$lib/assets/portraits/Warrior.png';
 import { DB_CLIENT } from '$lib/client';
+
+import { portraits } from 'shared';
 
 export const load = (async ({ parent }) => {
 	const { userID } = await parent();
 	const { data: playerPawns } = await DB_CLIENT.from('playerpawns')
 		.select('*')
 		.eq('playerid', userID);
+
+
+	// TODO: handle class and portraits
 
 	const characters =
 		playerPawns?.map((pawn) => {
@@ -16,7 +19,7 @@ export const load = (async ({ parent }) => {
 				level: pawn.lvl,
 				// TODO: implement rarity on the character itself
 				rarity: 3,
-				image: WarriorPortrait,
+				image: portraits['./Black_mage.png'],
 				class: pawn.class,
 				health: pawn.hp,
 				attack: pawn.attack,
