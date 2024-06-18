@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "vite build",
-    "gen:types": "esrun ./scripts/gen_icon_types.ts"
+    "gen:types": "esrun ./scripts/gen_icon_types.ts",
+    "postinstall": "pnpm build"
   },
   "files": [
     "dist"
