@@ -1,5 +1,21 @@
 <script context="module" lang="ts">
-	type AllowedModels = 'Knight' | 'Mage' | 'Skeleton';
+	export type AllowedModels = 'Knight' | 'Mage' | 'Skeleton' | "Rogue";
+
+	export function classNameToModel(className: string) {
+		switch (className) {
+			case 'Warrior':
+				return Knight;
+			case 'Black Mage':
+				return Mage;
+			case 'White Mage':
+				return Mage;
+			case 'Ranger':
+				return Rogue;
+
+			default:
+				return Knight;
+		}
+	}
 </script>
 
 <script lang="ts">
@@ -8,6 +24,7 @@
 	import Mage, { type ActionName } from './Mage/Mage.svelte';
 	import Skeleton from './Skeleton/Skeleton_Minion.svelte';
 	import Knight from './Knight.svelte';
+	import Rogue from "./Rogue/Rogue.svelte";
 	import { getContext, onMount } from 'svelte';
 	import type { Message } from '$lib/components/app/Views/Combat/CombatView.svelte';
 	import type { EventBus } from '$lib/components/app/Views/Combat/EventBus';
@@ -17,17 +34,7 @@
 	export let model: AllowedModels = 'Knight';
 
 	$: usedModel = ((modelName: AllowedModels) => {
-		switch (modelName) {
-			case 'Knight':
-				return Knight;
-			case 'Mage':
-				return Mage;
-			case 'Skeleton':
-				return Skeleton;
-
-			default:
-				break;
-		}
+		return classNameToModel(modelName);
 	})(model);
 
 	const bus: EventBus<{
@@ -47,7 +54,7 @@
 	});
 
 	function handleBattleMessage(message: Message) {
-		if (message.characterID === teamID) {
+		if (message.characterID === ID) {
 			switch (message.action) {
 				case 'attack':
 					onAttack();
@@ -94,7 +101,7 @@
 		$actions['Death_A_Pose']?.play();
 	};
 
-	export let teamID: string;
+	export let ID: string;
 </script>
 
 <svelte:component this={usedModel} bind:actions {...$$restProps}></svelte:component>

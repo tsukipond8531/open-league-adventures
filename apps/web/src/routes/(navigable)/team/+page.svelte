@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { DB_CLIENT } from '$lib/client.js';
 	import { derived, writable } from 'svelte/store';
 	import { Views } from 'ui';
 
@@ -24,8 +25,11 @@
 		};
 	})();
 
-	charactersStore.subscribe((value) => {
-		// TODO: notify database
+	charactersStore.subscribe(async (value) => {
+		const { data: d } = await DB_CLIENT.from('playerteam')
+			.update({ characterids: value.filter((c) => c.fielded === true).map((v) => v.id!) })
+			.eq('playerid', data.userID)
+			.select();
 	});
 
 	$: fielded = derived(charactersStore, ($charactersStore) =>

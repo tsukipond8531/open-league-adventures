@@ -109,14 +109,16 @@ Command: npx @threlte/gltf@2.0.3 ./models/mage/Mage.glb --types --shadows --tran
 	import { Group } from 'three';
 	import { T, type Props, type Events, type Slots, forwardEventHandlers } from '@threlte/core';
 	import { useGltf, useGltfAnimations } from '@threlte/extras';
-	import MageModel from './Mage-transformed.glb?url';
 	import { onMount } from 'svelte';
+
+	import { models } from 'shared';
 
 	type $$Props = Props<THREE.Group>;
 	type $$Events = Events<THREE.Group>;
 	type $$Slots = Slots<THREE.Group> & { fallback: {}; error: { error: any } };
 
-	const gltf = useGltf(`${MageModel}?${id++}`, { useDraco: true });
+	const gltf = useGltf(`${models['./Mage-transformed.glb']}?${id++}`, { useDraco: true });
+
 	onMount(() => {
 		return () => {
 			id--;

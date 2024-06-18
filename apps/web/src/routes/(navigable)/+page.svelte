@@ -14,6 +14,8 @@
 
 	let referalCode = '';
 
+	$: console.dir(data.team)
+
 	let clicked = false;
 	// TODO: if already referred, we're not showing the referral code input
 	async function submitReferral() {}
@@ -112,7 +114,7 @@
 	</Dialog.Root>
 </div>
 
-<Views.Idle />
+<Views.Idle models={data.team.map((char) => char.class)} />
 
 <div class="absolute z-10 flex flex-col items-center space-y-3 bottom-3 right-2">
 	<Dialog.Root>

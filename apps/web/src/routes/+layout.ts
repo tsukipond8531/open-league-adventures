@@ -4,7 +4,6 @@ import { init } from '@tma.js/sdk';
 export const ssr = false;
 
 export const load = (async ({ url }) => {
-	// TODO: get the user ID in another way. We 'should' be getting it from the opening URL?
 	let userID = 'Bogdanoff';
 
 	try {

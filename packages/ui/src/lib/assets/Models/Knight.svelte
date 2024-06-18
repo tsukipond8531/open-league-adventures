@@ -10,19 +10,20 @@ Command: npx @threlte/gltf@2.0.3 ./models/Knight.glb --output=./src/lib/assets/M
 <script lang="ts">
 	import { AnimationAction, Box3, Group, Vector3 } from 'three';
 	import { T, forwardEventHandlers } from '@threlte/core';
-	import { Outlines, useGltf, useGltfAnimations } from '@threlte/extras';
-	import { SkeletonUtils } from 'three/examples/jsm/Addons.js';
+	import { useGltf, useGltfAnimations } from '@threlte/extras';
 	import { getContext, onMount } from 'svelte';
 
 	export const ref = new Group();
 
-	import knightModel from '$lib/assets/Models/Knight-transformed.glb?url';
+	import { models } from 'shared';
 	import type { EventBus } from '$lib/components/app/Views/Combat/EventBus';
-	import type { Message } from '$lib/components/app/Views/Combat/CombatView.svelte';
 	import type { HERO_ANIMATIONS_TYPE } from '$lib/components/app/Views/Combat/animations';
-	const gltf = useGltf(`${knightModel}?${id++}`, { useDraco: true });
 
-	//	const gltf = useGltf(`.storybook/Knight-transformed.glb?${id++}`, { useDraco: true });
+	const gltf = useGltf(`${models["./Knight-transformed.glb"]}?${id++}`, { useDraco: true });
+
+	//const gltf = useGltf(`${models.knight}?${id++}`, { useDraco: true });
+	import model from "./Knight-transformed.glb?url";
+	//const gltf = useGltf(`${model}?${id++}`, { useDraco: true });
 	export const { actions, mixer } = useGltfAnimations<HERO_ANIMATIONS_TYPE>(gltf, ref);
 
 	const component = forwardEventHandlers();
@@ -36,7 +37,6 @@ Command: npx @threlte/gltf@2.0.3 ./models/Knight.glb --output=./src/lib/assets/M
 			id--;
 		};
 	});
-
 </script>
 
 <T is={ref} dispose={false} {...$$restProps} bind:this={$component}>

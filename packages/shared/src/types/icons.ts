@@ -1,0 +1,1 @@
+export type ICONS = "./Weapon_Battle copy.png" | "./Weapon_Battle.png";

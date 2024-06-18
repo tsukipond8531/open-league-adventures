@@ -15,15 +15,10 @@
 </script>
 
 <script lang="ts">
-	import Frog from '$lib/assets/frog.png';
 	import * as Character from '../../Character';
 	import * as Drawer from '$lib/components/ui/drawer';
 	import { default as CharacterDrawer } from '../../Character/Drawer/Drawer.svelte';
-	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import asset from '$lib/assets/Label_Ribbon00_Color_Purple.png';
-	import { quintOut } from 'svelte/easing';
-	import { crossfade } from 'svelte/transition';
-	import { div } from 'three/examples/jsm/nodes/Nodes.js';
 	import { MessageCircleQuestion } from 'lucide-svelte';
 
 	export let fielded: Hero[];
@@ -35,7 +30,6 @@
 
 <div class="flex flex-col max-h-full overflow-hidden">
 	<div class="px-2 py-4 border-b border-muted-foreground/70 h-fit">
-		<!-- <h1>Your team</h1> -->
 		<div class="px-6">
 			<div class="relative flex justify-center text-white banner" style="--ribbon: url({asset})">
 				<div

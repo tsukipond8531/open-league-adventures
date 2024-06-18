@@ -14,7 +14,6 @@ const supabase = createClient<Database>(
 );
 
 async function main() {
-  // TODO: switch between dev and prod token
   const bot = new Telegraf(process.env.TELEGRAM_DEV_HTTP_TOKEN!);
 
   bot.action("delete", async (ctx) => {
@@ -73,19 +72,6 @@ ${clans
     return `${i + 1}\\. ${c.clanname} \\- ${c.clanpower} power`;
   })
   .join("\n")}`);
-  });
-
-  bot.on(message("text"), async (ctx) => {
-    // FIXME: we need to check for the actual message sent by the user
-    // Explicit usage
-    //ctx.sendMessage(`Hello friend`);
-
-    const messageAction = ctx.message.text.split(" ")[0];
-
-    const action = actions[messageAction];
-    if (action) {
-      await action(ctx);
-    }
   });
 
   console.log("STARTING BOT");

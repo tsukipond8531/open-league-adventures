@@ -132,9 +132,17 @@ Command: npx @threlte/gltf@2.0.3 ./models/skeleton_minion/Skeleton_Minion.glb --
 			Glow: THREE.MeshStandardMaterial;
 		};
 	};
-	import Model from './Skeleton_Minion-transformed.glb?url';
+	import { models } from 'shared';
+
 	import { onMount } from 'svelte';
-	const gltf = useGltf<GLTFResult>(`${Model}?${id++}`, { useDraco: true });
+//	const gltf = useGltf(`${models.skeleton}?${id++}`, { useDraco: true });
+const gltf = useGltf(`${models["./Skeleton_Minion-transformed.glb"]}?${id++}`, { useDraco: true });
+
+/*
+	const gltf = useGltf<GLTFResult>(`./Skeleton_Minion-transformed.glb?url}?${id++}`, {
+		useDraco: true
+	});
+	*/
 	export const { actions, mixer } = useGltfAnimations<ActionName>(gltf, ref);
 
 	onMount(() => {

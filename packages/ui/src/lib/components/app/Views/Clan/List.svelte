@@ -53,9 +53,12 @@
 							<Drawer.Description>{clan.description}</Drawer.Description>
 						{/if}
 					</Drawer.Header>
-					<div class="p-4 pb-0">
-						<div>
-							{clan.power}
+					<div class="flex justify-end p-4 pb-0">
+						<div class="flex items-center pr-4 space-x-3">
+							<div>
+								{powerDisplay(clan.power)}
+							</div>
+							<img src={CupIcon} alt="Trophy icon" width="36" />
 						</div>
 					</div>
 					<Drawer.Footer>

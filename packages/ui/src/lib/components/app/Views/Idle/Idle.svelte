@@ -1,32 +1,31 @@
 <script lang="ts">
-	import { Canvas, type CurrentWritable } from '@threlte/core';
+	import { Canvas } from '@threlte/core';
 	import { T } from '@threlte/core';
-	import Knight from '$lib/assets/Models/Knight.svelte';
-	import { AnimationAction, BoxGeometry, MeshStandardMaterial } from 'three';
+	import { BoxGeometry, MeshStandardMaterial } from 'three';
 	import { injectLookAtPlugin } from '$lib/threlte.utils';
-	import { RoundedBoxGeometry } from '@threlte/extras';
-	import { Button, buttonVariants } from '$lib/components/ui/button';
-	import CustomRenderer from '$lib/CustomRenderer.svelte';
+	import { Button } from '$lib/components/ui/button';
 	import Energy from '$lib/assets/Itemicon_Energy_0_Yellow.png';
+	import CharacterWrapper, { type AllowedModels } from '$lib/assets/Models/CharacterWrapper.svelte';
 
-	const meshes = new Array(5).fill(Knight);
 	injectLookAtPlugin();
-
-	let knightActions: CurrentWritable<Partial<Record<string, AnimationAction>>>;
 
 	let cameraPosition: [x: number, y: number, z: number] = [10, 3, 10];
 	let lookTarget = cameraPosition;
+
+	export let models: AllowedModels[] = [];
+
+	const modelPositions = [
+		[1, 0, -3],
+		[-1, 0, 0],
+		[1, 0, 3],
+		[4, 0, 0]
+	];
 </script>
 
 <div class="relative h-full border me">
 	<Canvas>
-		<T.DirectionalLight position={[0, 10, 10]} intensity={0.4} castShadow />
-		<T.AmbientLight intensity={0.2} />
-		<T.Mesh position={[1, 0, 1]}>
-			<T.PointLight intensity={20} />
-			<RoundedBoxGeometry />
-			<T.MeshPhongMaterial color="hotpink" />
-		</T.Mesh>
+		<T.DirectionalLight position={[0, 10, 10]} intensity={0.6} castShadow />
+		<T.AmbientLight intensity={0.4} />
 
 		<T.Mesh
 			receiveShadow
@@ -43,13 +42,20 @@
 			}}
 		></T.PerspectiveCamera>
 
-		<Knight position={[1, 0, -3]} lookAt={lookTarget} />
-
-		<Knight position={[-1, 0, 0]} bind:actions={knightActions} lookAt={lookTarget} />
-
-		<Knight position={[0, 0, 3]} lookAt={lookTarget} />
-
-		<Knight position={[4, 0, 0]} lookAt={lookTarget} />
+		{#each models as model, i}
+		<CharacterWrapper {model} lookAt={lookTarget} position={modelPositions[i]} ID="model-{i}"
+		></CharacterWrapper>
+		{/each}
+		<!-- 
+		<CharacterWrapper model="Knight" lookAt={lookTarget} position={[1, 0, -3]} ID="a"
+		></CharacterWrapper>
+		<CharacterWrapper model="Knight" lookAt={lookTarget} position={[-1, 0, 0]} ID="b"
+		></CharacterWrapper>
+		<CharacterWrapper model="Knight" lookAt={lookTarget} position={[1, 0, 3]} ID="c"
+		></CharacterWrapper>
+		<CharacterWrapper model="Knight" lookAt={lookTarget} position={[4, 0, 0]} ID="d"
+		></CharacterWrapper>
+		 -->
 	</Canvas>
 	<div class="absolute z-10 flex flex-col items-center w-full bottom-10">
 		<div class="flex flex-col items-center text-center font-fredoka">

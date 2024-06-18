@@ -99,7 +99,6 @@
 		<!-- <Gltf /> -->
 
 		<Knight position={[1, 0, -3]} />
-		<!-- <Knight position={[3, 3, 3]} /> -->
 		<Knight position={$position} bind:actions={knightActions} lookAt={lookTarget} />
 	</Canvas>
 </div>

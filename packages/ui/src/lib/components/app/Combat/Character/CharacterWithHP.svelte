@@ -38,7 +38,6 @@
 			switch (message.action) {
 				case 'damage':
 					onDamage(message.damage!);
-					// TODO: handle hit animation on the enemy
 					break;
 				default:
 					break;
@@ -58,6 +57,6 @@
 
 <CssObject position={characterContext.position} center={[0.5, 11]}>
 	<HealthGradient {healthPercentage} />
-	<CharacterWrapper teamID={id} model={characterContext.model} slot="three" {...$$restProps}
+	<CharacterWrapper ID={id} model={characterContext.model} slot="three" {...$$restProps}
 	></CharacterWrapper>
 </CssObject>

@@ -53,7 +53,6 @@
 
 		isTelegram = true;
 		if ('Telegram' in window) {
-			//console.dir(window.Telegram);
 			console.log('telegram');
 			///window.Telegram.WebApp.enableClosingConfirmation();
 		}

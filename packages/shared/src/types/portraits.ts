@@ -1,0 +1,1 @@
+export type PORTRAITS = "./Black_mage.png" | "./Ranger.png" | "./Warrior.png";

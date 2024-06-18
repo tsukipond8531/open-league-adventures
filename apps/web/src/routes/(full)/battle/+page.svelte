@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, setContext } from 'svelte';
+	import { onDestroy, onMount, setContext } from 'svelte';
 
 	import { FightServiceClient, EndFight } from 'protos';
 	import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
@@ -35,8 +35,9 @@
 		}
 	}
 
+	let notifier: NodeJS.Timeout;
+
 	onMount(async () => {
-		// TODO: we need a coroutine that will keep fetching messages until it's over
 		const transport = new GrpcWebFetchTransport({
 			baseUrl: PUBLIC_API_SERVER,
 			format: 'binary'
@@ -50,7 +51,7 @@
 			{}
 		);
 
-		const notifier = roundNotifier(currentState, client);
+		notifier = roundNotifier(currentState, client);
 
 		for await (const message of stream.responses) {
 			const { payload } = message;
@@ -85,10 +86,10 @@
 				currentState.end(payload.endFight);
 			}
 		}
+	});
 
-		return () => {
-			clearInterval(notifier);
-		};
+	onDestroy(() => {
+		clearInterval(notifier);
 	});
 
 	const roundNotifier = (state: Readable<BattleState>, client: FightServiceClient) => {
